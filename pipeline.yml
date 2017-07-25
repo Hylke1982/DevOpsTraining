@@ -1,0 +1,21 @@
+# Resource section
+resources:
+- name: sources # Name of the resource
+  type: git # Resource type
+  source:
+    uri: git@github.com:Hylke1982/DevOpsTraining.git
+    private_key: ((private-repo-key))
+    git_config:
+    - name: core.sshCommand
+      value: ssh -vvvv -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no
+
+# Jobs section
+jobs:
+- name: build
+  plan:
+  - get: sources
+    trigger: true
+  - task: build software
+    file: sources/CI/task-build.yml
+    config:
+
