@@ -8,6 +8,5 @@ inputs:
   - name: sources # Use the source resource
 
 run:
-  path: ./gradlew # Command to execute
-  args: ["build"]
+  path: ./publish.sh # Command to execute
   dir: sources/application # Location to execute, note the 'sources' as directory prefix
