@@ -32,5 +32,40 @@ jobs:
   - get: sources # Download the sources
     trigger: true
     passed: [test] # Trigger after job test has passed
-  - task: deploy new version
-    file: sources/CI/task-deploy.yml
+  - task: tag the version for release
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source: {repository: openjdk, tag: 8-alpine}
+      inputs:
+        - name: sources
+      run:
+        path: ./gradlew
+        args: ["tag", "-Prelease"]
+        dir: sources/application
+  - task: publish
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source: {repository: openjdk, tag: 8-alpine}
+      inputs:
+        - name: sources
+      run:
+        path: ./gradlew
+        args: ["uploadArchives"]
+        dir: sources/application
+  - task: update patch
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source: {repository: openjdk, tag: 8-alpine}
+      inputs:
+        - name: sources
+      run:
+        path: ./gradlew
+        args: ["tag", "-PbumpComponent=patch"]
+        dir: sources/application
+  - put: sources # Push the tag
