@@ -1,9 +1,13 @@
 *.iml
 .idea/
 
+.DS_Store
+
 .vagrant
 machine/*.log
 *.retry
 
 .gradle/
 build/
+
+secrets.yml
