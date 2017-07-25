@@ -7,11 +7,13 @@ buildscript {
     }
 }
 
-apply plugin: 'java'
-apply plugin: 'maven'
-apply plugin: 'eclipse'
-apply plugin: 'idea'
-apply plugin: 'org.springframework.boot'
+plugins {
+    id 'java'
+    id 'maven'
+    id 'eclipse'
+    id 'idea'
+    id 'org.springframework.boot' version '1.5.4.RELEASE'
+}
 
 jar {
     baseName = 'devops-training-application'
@@ -25,6 +27,8 @@ springBoot {
 repositories {
     mavenCentral()
 }
+
+group 'nl.codecentric.devops.training'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
