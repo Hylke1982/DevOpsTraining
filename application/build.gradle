@@ -12,7 +12,8 @@ plugins {
     id 'maven'
     id 'eclipse'
     id 'idea'
-    id 'org.springframework.boot' version '1.5.4.RELEASE'
+    def springBootVersion = '1.5.4.RELEASE'
+    id 'org.springframework.boot' version springBootVersion
 }
 
 jar {
@@ -45,9 +46,23 @@ dependencies {
 
 uploadArchives {
     repositories.mavenDeployer {
+        configuration = configurations.deployerJars
         repository(url: "http://nexus.service.consul:8081/nexus/content/repositories/releases") {
             authentication(userName: "admin", password: "admin123")
         }
+        pom {
+            groupId = project.group
+            artifactId = jar.baseName
+            version = jar.version
+            project {
+                parent {
+                    groupId "org.springframework.boot"
+                    artifactId "spring-boot-starter-parent"
+                    version springBootVersion
+                }
+            }
+        }
     }
 }
+
 
