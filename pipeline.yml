@@ -52,8 +52,8 @@ jobs:
           cd sources-output/application
           ./gradlew printVersion
           ./gradlew tag -Prelease uploadArchives
-          echo "startingVersion = \"$(git tag --list | head -n 1)\"" > semantic-build-versioning.gradle
-          ./gradlew -PbumpComponent=patch
+          ./gradlew printVersion
+          ./gradlew -PnewPreRelease
           ./gradlew printVersion
           git status
           git config --global user.email "concourse@build.com"
