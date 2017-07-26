@@ -50,6 +50,13 @@ jobs:
         - |
           git clone sources sources-output
           cd sources-output/application
-          ./gradlew tag -Prelease uploadArchives tag -PbumpComponent=patch
+          ./gradlew printVersion
+          ./gradlew tag -Prelease uploadArchives
+          echo "startingVersion = \"$(git tag --list | head -n 1)\"" > semantic-build-versioning.gradle
+          ./gradlew -PbumpComponent=patch
+          ./gradlew printVersion
+          git status
+          git config --global user.email "concourse@build.com"
+          git commit -a -m "[CI-SKIP] version bump to "
   - put: sources
     params: {repository: sources-output}
