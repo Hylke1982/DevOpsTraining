@@ -22,7 +22,7 @@ run: # Gradle release + version bumping
     git clone sources sources-output
     cd sources-output/application
     ./gradlew printVersion
-    ./gradlew tag -Prelease build uploadArchives --debug
+    ./gradlew tag -Prelease build uploadArchives
     ./gradlew printVersion
     git commit --allow-empty -a -m "[ci skip] version bump"
     ./gradlew -PbumpComponent=patch
