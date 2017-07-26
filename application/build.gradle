@@ -21,6 +21,10 @@ jar {
     version = '0.1.0'
 }
 
+configurations {
+    deployerJars
+}
+
 springBoot {
     mainClass = "nl.codecentric.devops.training.DevopsTrainingApplication"
 }
