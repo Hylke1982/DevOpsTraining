@@ -34,6 +34,6 @@ jobs:
     trigger: true
     passed: [test] # Trigger after job test has passed
   - task: tag, publish and publish new version
-    file: sources/CI/task-build.yml
+    file: sources/CI/task-deploy.yml
   - put: sources
     params: {repository: sources-output} # Push latest version after tagging en version bump
