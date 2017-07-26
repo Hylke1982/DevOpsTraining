@@ -18,11 +18,7 @@ plugins {
 
 jar {
     baseName = 'devops-training-application'
-    version = '0.1.0'
-}
-
-configurations {
-    deployerJars
+    version = project.version 
 }
 
 springBoot {
@@ -50,7 +46,6 @@ dependencies {
 
 uploadArchives {
     repositories.mavenDeployer {
-        configuration = configurations.deployerJars
         repository(url: "http://nexus.service.consul:8081/nexus/content/repositories/releases") {
             authentication(userName: "admin", password: "admin123")
         }
