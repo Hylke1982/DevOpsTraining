@@ -7,14 +7,13 @@ buildscript {
     }
 }
 
-def springBootVersion = '1.5.4.RELEASE'
 
 plugins {
     id 'java'
     id 'maven'
     id 'eclipse'
     id 'idea'
-    id 'org.springframework.boot' version springBootVersion
+    id 'org.springframework.boot' version '1.5.4.RELEASE'
 }
 
 jar {
@@ -59,7 +58,7 @@ uploadArchives {
                 parent {
                     groupId "org.springframework.boot"
                     artifactId "spring-boot-starter-parent"
-                    version springBootVersion
+                    version '1.5.4.RELEASE'
                 }
             }
         }
