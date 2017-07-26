@@ -5,6 +5,7 @@ resources:
   source:
     uri: git@github.com:Hylke1982/DevOpsTraining.git
     private_key: ((private-repo-key))
+    branch: master
     git_config:
     - name: core.sshCommand
       value: ssh -vvvv -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no
@@ -32,40 +33,23 @@ jobs:
   - get: sources # Download the sources
     trigger: true
     passed: [test] # Trigger after job test has passed
-  - task: tag the version for release
+  - task: tag, publish and publish new version
     config:
       platform: linux
       image_resource:
         type: docker-image
-        source: {repository: openjdk, tag: 8-alpine}
+        source: {repository: openjdk, tag: 8}
       inputs:
-        - name: sources
+      - name: sources
+      outputs:
+      - name: sources-output
       run:
-        path: ./gradlew
-        args: ["tag", "-Prelease"]
-        dir: sources/application
-  - task: publish
-    config:
-      platform: linux
-      image_resource:
-        type: docker-image
-        source: {repository: openjdk, tag: 8-alpine}
-      inputs:
-        - name: sources
-      run:
-        path: ./gradlew
-        args: ["uploadArchives"]
-        dir: sources/application
-  - task: update patch
-    config:
-      platform: linux
-      image_resource:
-        type: docker-image
-        source: {repository: openjdk, tag: 8-alpine}
-      inputs:
-        - name: sources
-      run:
-        path: ./gradlew
-        args: ["tag", "-PbumpComponent=patch"]
-        dir: sources/application
-  - put: sources # Push the tag
+        path: sh
+        args:
+        - -exc
+        - |
+          git clone sources sources-output
+          cd sources-output/application
+          ./gradlew tag -Prelease uploadArchives tag -PbumpComponent=patch
+  - put: sources
+    params: {repository: sources-output}
