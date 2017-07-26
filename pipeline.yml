@@ -34,29 +34,6 @@ jobs:
     trigger: true
     passed: [test] # Trigger after job test has passed
   - task: tag, publish and publish new version
-    config:
-      platform: linux
-      image_resource:
-        type: docker-image
-        source: {repository: openjdk, tag: 8}
-      inputs:
-      - name: sources
-      outputs:
-      - name: sources-output
-      run:
-        path: sh
-        args:
-        - -exc
-        - |
-          git clone sources sources-output
-          cd sources-output/application
-          ./gradlew printVersion
-          ./gradlew tag -Prelease uploadArchives
-          ./gradlew printVersion
-          ./gradlew -PnewPreRelease
-          ./gradlew printVersion
-          git status
-          git config --global user.email "concourse@build.com"
-          git commit -a -m "[CI-SKIP] version bump to "
+    file: sources/CI/task-build.yml
   - put: sources
-    params: {repository: sources-output}
+    params: {repository: sources-output} # Push latest version after tagging en version bump
