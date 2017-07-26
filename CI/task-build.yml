@@ -7,6 +7,9 @@ image_resource:
 inputs:
   - name: sources # Use the source resource
 
+caches:
+  - path: ["sources/application/build","sources/application/.gradle"]
+
 run:
   path: ./gradlew # Command to execute
   args: ["build"]
