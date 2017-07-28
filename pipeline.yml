@@ -45,6 +45,6 @@ jobs:
   plan:
   - get: sources # Download the sources
     trigger: true
-    passed: [test] # Trigger after job test has passed
+    passed: [deploy] # Trigger after job test has passed
   - task: run the application in the blue environment
     file: sources/CI/task-run.yml
