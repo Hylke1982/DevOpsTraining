@@ -18,7 +18,7 @@ plugins {
 
 jar {
     baseName = 'devops-training-application'
-    version = project.version 
+    version = project.version
 }
 
 springBoot {
@@ -63,5 +63,3 @@ uploadArchives {
         }
     }
 }
-
-
