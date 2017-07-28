@@ -2,7 +2,7 @@ platform: linux
 
 image_resource:
   type: docker-image
-  source: {repository: alpine, tag: 3.6} # Docker container to build in
+  source: {repository: alpine, tag: 8-alpine} # Docker container to build in
 
 run:
   path: ./gradlew # Command to execute
