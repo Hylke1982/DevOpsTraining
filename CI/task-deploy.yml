@@ -9,6 +9,7 @@ inputs:
 
 outputs:
 - name: sources-output # Output to special name space
+- name: new-version
 
 caches:
   - path: ["sources/application/build","sources/application/.gradle"]
@@ -28,3 +29,6 @@ run: # Gradle release + version bumping
     ./gradlew -PbumpComponent=patch
     ./gradlew printVersion
     git status
+    VERSION=git describe --abbrev=0 --tags
+    echo $VERSION
+    curl -X PUT -d "$VERSION" http://consul.service.consul:8500/v1/kv/version
