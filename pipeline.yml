@@ -42,7 +42,7 @@ jobs:
 
 
 - name: run
-  serial: true
+  serial: true # No parallel execution of the plan
   plan:
   - get: sources # Download the sources
     trigger: true
