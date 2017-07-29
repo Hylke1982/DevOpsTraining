@@ -42,6 +42,7 @@ jobs:
 
 
 - name: run
+  serial: true
   plan:
   - get: sources # Download the sources
     trigger: true
