@@ -17,7 +17,7 @@ run: # Gradle release + version bumping
     VERSION=$(curl -X GET http://consul.service.consul:8500/v1/kv/version?raw=true)
     CURRENT_ENVIRONMENT=$(curl -X GET http://consul.service.consul:8500/v1/kv/environement?raw=true)
     DOWNLOAD_URL="http://nexus.service.consul:8081/nexus/content/repositories/releases/nl/codecentric/devops/training/devops-training-application/$VERSION/devops-training-application-$VERSION.jar"
-    ENVIRONMENT = "blue"
+    ENVIRONMENT="blue"
     if [ "CURRENT_ENVIRONMENT" -eq "blue" ]; then
       ENVIRONMENT = "green"
     elif [ "CURRENT_ENVIRONMENT" -eq "green" ]; then
