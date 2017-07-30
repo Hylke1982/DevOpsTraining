@@ -8,7 +8,7 @@ inputs:
   - name: sources # Use the source resource
 
 caches:
-  - path: ["sources/application/build","sources/application/.gradle"]
+  - path: ["sources/application/build","sources/application/.gradle", "/root/.m2"]
 
 run:
   path: ./gradlew # Command to execute
